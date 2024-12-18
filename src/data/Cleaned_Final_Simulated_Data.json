@@ -3,8 +3,8 @@
         "sid": 1,
         "solution_name": "MyAmeria",
         "version": "v9.12.0",
-        "tribe": "ITE",
-        "squad": "Solution1",
+        "tribe": "DC",
+        "squad": "MyAmeria",
         "type_of_dependency": "internal",
         "is_spof": "no",
         "criticality": "mission_critical",
@@ -25,6 +25,11 @@
                     "type": "internal",
                     "service": "Bank Infrastructure",
                     "sid": 3
+                },
+                {
+                    "type": "internal",
+                    "service": "Account Manager",
+                    "sid": 4
                 }
             ]
         },
@@ -49,7 +54,44 @@
         "squad": "Core Domnain Services",
         "type_of_dependency": "internal",
         "is_spof": "no",
-        "criticality": "business_critical",
+        "criticality": "mission_critical",
+        "logging": "enabled",
+        "monitoring": "enabled",
+        "incident_management": "automated",
+        "dependencies": {
+            "upstream": [
+                {
+                    "type": "internal",
+                    "service": "Service 1",
+                    "sid": 1
+                }
+            ],
+            "downstream": [
+                
+            ]
+        },
+        "databases": [
+            {
+                "type": "internal DB",
+                "engine": "MSSQL",
+                "hostname": "db-0957.example.com",
+                "replication-method": "Multi-Master",
+                "data-consistency": "Strong",
+                "backup-frequency": 30,
+                "RPO": 62,
+                "RTO": 3
+            }
+        ]
+    },
+    {
+        "sid": 4,
+        "solution_name": "Account Manager",
+        "version": "v4.12.0",
+        "tribe": "ITE",
+        "squad": "Core Domnain Services",
+        "type_of_dependency": "internal",
+        "is_spof": "no",
+        "criticality": "mission_critical",
         "logging": "enabled",
         "monitoring": "enabled",
         "incident_management": "automated",
@@ -81,7 +123,7 @@
     {
         "sid": 3,
         "solution_name": "Bank infrastructure",
-        "version": "v7.12.0",
+        "version": "v5.14.4",
         "tribe": "ITE",
         "squad": "Core Domnain Services",
         "type_of_dependency": "internal",
