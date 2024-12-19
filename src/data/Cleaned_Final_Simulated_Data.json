@@ -27,9 +27,9 @@
                     "sid": 3
                 },
                 {
-                    "type": "internal",
-                    "service": "Account Manager",
-                    "sid": 4
+                    "type": "external",
+                    "service": "ArCA",
+                    "sid": 5
                 }
             ]
         },
@@ -38,6 +38,16 @@
                 "type": "internal DB",
                 "engine": "MSSQL",
                 "hostname": "db-0957.example.com",
+                "replication-method": "Multi-Master",
+                "data-consistency": "Strong",
+                "backup-frequency": 30,
+                "RPO": 62,
+                "RTO": 3
+            },
+            {
+                "type": "internal DB",
+                "engine": "Postgres",
+                "hostname": "db-0957.postgres.com",
                 "replication-method": "Multi-Master",
                 "data-consistency": "Strong",
                 "backup-frequency": 30,
@@ -67,6 +77,11 @@
                 }
             ],
             "downstream": [
+                {
+                    "type": "external",
+                    "service": "Service 1",
+                    "sid": 4
+                }
                 
             ]
         },
@@ -74,6 +89,16 @@
             {
                 "type": "internal DB",
                 "engine": "MSSQL",
+                "hostname": "db-0957.example.com",
+                "replication-method": "Multi-Master",
+                "data-consistency": "Strong",
+                "backup-frequency": 30,
+                "RPO": 62,
+                "RTO": 3
+            }, 
+            {
+                "type": "internal DB",
+                "engine": "Postgres",
                 "hostname": "db-0957.example.com",
                 "replication-method": "Multi-Master",
                 "data-consistency": "Strong",
@@ -97,14 +122,14 @@
         "incident_management": "automated",
         "dependencies": {
             "upstream": [
-                {
-                    "type": "internal",
-                    "service": "Service 1",
-                    "sid": 1
-                }
+               
             ],
             "downstream": [
-                
+                {
+                    "type": "external",
+                    "service": "Service 1",
+                    "sid": 4
+                }
             ]
         },
         "databases": [
@@ -155,6 +180,54 @@
                 "RPO": 62,
                 "RTO": 3
             }
+        ]
+    },
+    {
+        "sid": 4,
+        "solution_name": "NORQ API",
+        "version": "v5.14.4",
+        "tribe": "Ekeng",
+        "squad": "Ekeng",
+        "type_of_dependency": "external",
+        "is_spof": "no",
+        "criticality": "business_critical",
+        "logging": "enabled",
+        "monitoring": "enabled",
+        "incident_management": "automated",
+        "dependencies": {
+            "upstream": [
+                
+            ],
+            "downstream": [
+                
+            ]
+        },
+        "databases": [
+            
+        ]
+    }, 
+    {
+        "sid": 5,
+        "solution_name": "ARCA API",
+        "version": "v5.14.4",
+        "tribe": "Ekeng",
+        "squad": "Ekeng",
+        "type_of_dependency": "external",
+        "is_spof": "no",
+        "criticality": "business_critical",
+        "logging": "enabled",
+        "monitoring": "enabled",
+        "incident_management": "automated",
+        "dependencies": {
+            "upstream": [
+                
+            ],
+            "downstream": [
+                
+            ]
+        },
+        "databases": [
+            
         ]
     }
     
