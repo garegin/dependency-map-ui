@@ -52,7 +52,7 @@ const DependencyGraph = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [selectedNode, setSelectedNode] = useState(null);
   const [popupPosition, setPopupPosition] = useState({ top: 0, left: 0 });
-  const [popupSize, setPopupSize] = useState({ width: 300, height: 'auto' });
+  const [popupSize, setPopupSize] = useState({ width: 400, height: 'auto' });
   const [expandedNodes, setExpandedNodes] = useState({});
 
   useEffect(() => {
@@ -129,49 +129,51 @@ const DependencyGraph = () => {
   const closePopup = () => setSelectedNode(null);
 
   const toggleDatabases = (sid) => {
-    setExpandedNodes((prev) => ({
-      ...prev,
-      [sid]: !prev[sid],
-    }));
-
-    const service = data.find((s) => s.sid === sid);
-    if (!expandedNodes[sid]) {
-      const newNodes = service.databases.map((db, index) => ({
-        id: `${service.sid}-db-${index}`,
-        data: {
-          label: (
-            <div style={{ textAlign: 'center', marginLeft:'0px' }}>
-              <div><strong>{db.type}</strong></div>
-              <div style={{ textAlign: 'left', backgroundColor: 'white', color: 'black' }}>{db.engine}</div>
-              <div style={{ textAlign: 'left', backgroundColor: 'white', color: 'black' }}>{db.hostname}</div>
-            </div>
-          ),
-          fullData: db, // Store full data for popup
-        },
-        position: { x: Math.random() * 800, y: Math.random() * 600 },
-        style: {
-          borderColor: 'blue',
-          color: 'black',
-          padding: 10,
-          borderRadius: '5px',
-          cursor: 'pointer',
-        },
-      }));
-
-      const newEdges = newNodes.map((node) => ({
-        id: `e${service.sid}-${node.id}-${Math.random()}`,
-        source: String(service.sid),
-        target: node.id,
-        style: { stroke: 'black', strokeWidth: 2 },
-      }));
-
-      setNodes((nds) => nds.concat(newNodes));
-      setEdges((eds) => eds.concat(newEdges));
-    } else {
-      const dbNodeIds = service.databases.map((_, index) => `${service.sid}-db-${index}`);
-      setNodes((nds) => nds.filter((node) => !dbNodeIds.includes(node.id)));
-      setEdges((eds) => eds.filter((edge) => !dbNodeIds.includes(edge.target)));
-    }
+    setExpandedNodes((prev) => {
+      const newExpandedNodes = { ...prev, [sid]: !prev[sid] };
+      console.log('Toggling databases for SID:', sid, 'New state:', newExpandedNodes);
+  
+      const service = data.find((s) => s.sid === sid);
+      if (!newExpandedNodes[sid]) {
+        const newNodes = service.databases.map((db, index) => ({
+          id: `${service.sid}-db-${index}`,
+          data: {
+            label: (
+              <div style={{ textAlign: 'center', marginLeft:'0px' }}>
+                <div><strong>{db.type}</strong></div>
+                <div style={{ textAlign: 'left', backgroundColor: 'white', color: 'black' }}>{db.engine}</div>
+                <div style={{ textAlign: 'left', backgroundColor: 'white', color: 'black' }}>{db.hostname}</div>
+              </div>
+            ),
+            fullData: db, // Store full data for popup
+          },
+          position: { x: Math.random() * 800, y: Math.random() * 600 },
+          style: {
+            borderColor: 'blue',
+            color: 'black',
+            padding: 10,
+            borderRadius: '5px',
+            cursor: 'pointer',
+          },
+        }));
+  
+        const newEdges = newNodes.map((node) => ({
+          id: `e${service.sid}-${node.id}-${Math.random()}`,
+          source: String(service.sid),
+          target: node.id,
+          style: { stroke: 'black', strokeWidth: 2 },
+        }));
+  
+        setNodes((nds) => nds.concat(newNodes));
+        setEdges((eds) => eds.concat(newEdges));
+      } else {
+        const dbNodeIds = service.databases.map((_, index) => `${service.sid}-db-${index}`);
+        setNodes((nds) => nds.filter((node) => !dbNodeIds.includes(node.id)));
+        setEdges((eds) => eds.filter((edge) => !dbNodeIds.includes(edge.target)));
+      }
+  
+      return newExpandedNodes;
+    });
   };
 
   return (
