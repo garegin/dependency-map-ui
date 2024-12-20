@@ -1,7 +1,7 @@
 [
     {
         "sid": 1,
-        "solution_name": "MyAmeria",
+        "name": "MyAmeria",
         "version": "v9.12.0",
         "tribe": "DC",
         "squad": "MyAmeria",
@@ -35,6 +35,7 @@
         },
         "databases": [
             {
+                "name":"MyAmeria MSSQL DB",
                 "type": "internal DB",
                 "engine": "MSSQL",
                 "hostname": "db-0957.example.com",
@@ -45,6 +46,7 @@
                 "RTO": 3
             },
             {
+                "name":"MyAmeria Postgres DB",
                 "type": "internal DB",
                 "engine": "Postgres",
                 "hostname": "db-0957.postgres.com",
@@ -58,7 +60,7 @@
     },
     {
         "sid": 2,
-        "solution_name": "Person Profile",
+        "name": "Person Profile",
         "version": "v7.12.0",
         "tribe": "ITE",
         "squad": "Core Domnain Services",
@@ -87,6 +89,7 @@
         },
         "databases": [
             {
+                "name": "Person Profile MSSQL DB",
                 "type": "internal DB",
                 "engine": "MSSQL",
                 "hostname": "db-0957.example.com",
@@ -97,6 +100,7 @@
                 "RTO": 3
             }, 
             {
+                "name":"Account Manager Posgres DB",
                 "type": "internal DB",
                 "engine": "Postgres",
                 "hostname": "db-0957.example.com",
@@ -110,7 +114,7 @@
     },
     {
         "sid": 4,
-        "solution_name": "Account Manager",
+        "name": "Account Manager",
         "version": "v4.12.0",
         "tribe": "ITE",
         "squad": "Core Domnain Services",
@@ -134,6 +138,7 @@
         },
         "databases": [
             {
+                "name":"Account Manager MSSQL DB",
                 "type": "internal DB",
                 "engine": "MSSQL",
                 "hostname": "db-0957.example.com",
@@ -147,7 +152,7 @@
     },
     {
         "sid": 3,
-        "solution_name": "Bank infrastructure",
+        "name": "Bank infrastructure",
         "version": "v5.14.4",
         "tribe": "ITE",
         "squad": "Core Domnain Services",
@@ -159,11 +164,7 @@
         "incident_management": "automated",
         "dependencies": {
             "upstream": [
-                {
-                    "type": "internal",
-                    "service": "Service 1",
-                    "sid": 1
-                }
+                
             ],
             "downstream": [
                 
@@ -171,6 +172,7 @@
         },
         "databases": [
             {
+                "name": "Bank infrastructure MSSQL",
                 "type": "internal DB",
                 "engine": "MSSQL",
                 "hostname": "db-0957.example.com",
@@ -184,7 +186,7 @@
     },
     {
         "sid": 4,
-        "solution_name": "NORQ API",
+        "name": "NORQ API",
         "version": "v5.14.4",
         "tribe": "Ekeng",
         "squad": "Ekeng",
@@ -196,10 +198,8 @@
         "incident_management": "automated",
         "dependencies": {
             "upstream": [
-                
             ],
             "downstream": [
-                
             ]
         },
         "databases": [
@@ -208,13 +208,13 @@
     }, 
     {
         "sid": 5,
-        "solution_name": "ARCA API",
+        "name": "ARCA API",
         "version": "v5.14.4",
         "tribe": "Ekeng",
         "squad": "Ekeng",
         "type_of_dependency": "external",
         "is_spof": "no",
-        "criticality": "business_critical",
+        "criticality": "mission_critical",
         "logging": "enabled",
         "monitoring": "enabled",
         "incident_management": "automated",
